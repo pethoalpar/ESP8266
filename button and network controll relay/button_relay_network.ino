@@ -1,8 +1,8 @@
 #include <dummy.h>
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "proton";         // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "0736335649";
+const char* ssid     = "Your wifi name";         // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password = "YOUR wifi password";
 
 int outpin = 0;
 int button = 16;
@@ -17,8 +17,8 @@ void setup() {
   Serial.begin(9600);
 
   WiFi.begin(ssid, password); 
-  IPAddress ip(192,168,100,31);   
-  IPAddress gateway(192,168,100,1);   
+  IPAddress ip(192,168,1,3);   
+  IPAddress gateway(192,168,1,1);   
   IPAddress subnet(255,255,255,0);   
   WiFi.config(ip, gateway, subnet);
 
@@ -52,7 +52,6 @@ void loop() {
 
   while (client.connected()){
     if (client.available()){
-      // ============================================================
       String request = client.readStringUntil('\r');
       Serial.println(request);
       client.println("HTTP/1.1 200 OK"); //
@@ -69,7 +68,6 @@ void loop() {
         digitalWrite(outpin, HIGH); // Turn LED OFF
         ledState = 1;
       }
-      // ============================================================
     }else{
       buttonState=digitalRead(button); 
       if (buttonState == 1){
